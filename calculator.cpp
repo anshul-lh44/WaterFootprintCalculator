@@ -36,6 +36,8 @@ WaterFootprintCalculator::WaterFootprintCalculator() {
     activityList.push_back(Activity("Cooking and Drinking"));
     activityList.push_back(Activity("Laundry"));
     activityList.push_back(Activity("Dishwashing"));
+    activityList.push_back(Activity("Driving"));
+    activityList.push_back(Activity("Shopping"));
 }
 
 void WaterFootprintCalculator::run() {
@@ -179,12 +181,34 @@ double WaterFootprintCalculator::estimateWaterUsage(const std::string &activityN
             std::cout << "How many times do you wash the dishes by hand per week? ";
             std::cin >> washCount;
             waterUsage = (loadCount * 15) + (washCount * 56);
-        } else {
-            std::cout << "Invalid choice!\n";
-            return 0;
+        } 
+    } else if (activityName == "Driving") {
+        int choice;
+        double distance;
+        std::cout << "Do you drive a motor vehicle yes(1) or no(2)? ";
+        std::cin >> choice;
+        if (choice == 1) {
+            std::cout << "How many kilometers do you drive by vehicle? ";
+            std::cin >> distance;
+            waterUsage = distance * 0.41 * 22.38; 
+        } else if (choice == 2) {
+            waterUsage = 0;
         }
-    }
-
+    } else if (activityName == "Shopping") {
+        int choice;
+        std::cout << "What is your shopping habit?\n Shopaholic(1) Just the basics(2) or Shopping for Fun(3)? ";
+        std::cin >> choice;
+        if (choice == 1) {
+            waterUsage = 18300 * 5;
+        } else if (choice == 2) {
+            waterUsage = 18300;
+        } else if (choice == 3) {
+            waterUsage = 18300 * 3;
+        }    
+    } else {
+        std::cout << "Invalid choice!\n";
+        return 0;
+    }  
     return waterUsage;
 }
 
